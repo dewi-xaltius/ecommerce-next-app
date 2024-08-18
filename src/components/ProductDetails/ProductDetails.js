@@ -14,6 +14,7 @@ import {
   ButtonGroup,
   Button,
 } from './ProductDetails.styles';
+import DeleteButton from '../DeleteButton/DeleteButton';
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
@@ -39,21 +40,7 @@ const ProductDetails = () => {
       fetchProduct();
     }
   }, [id]);
-
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`https://demo1-4744.restdb.io/rest/ecommerce/${id}`, {
-        headers: {
-          'x-apikey': process.env.NEXT_PUBLIC_RESTDB_API_KEY,
-          'Content-Type': 'application/json',
-        },
-      });
-      router.push('/');
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
-  };
-
+  
   if (!product) {
     return <p>Loading...</p>;
   }
@@ -71,7 +58,7 @@ const ProductDetails = () => {
         <ProductCategory>Category: {product.category}</ProductCategory>
         <ButtonGroup>
           <Button>Edit</Button>
-          <Button onClick={handleDelete}>Delete</Button>
+          <DeleteButton productId={id} />
         </ButtonGroup>
       </DetailsContainer>
     </ProductDetailsContainer>
