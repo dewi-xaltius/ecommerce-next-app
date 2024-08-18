@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { HomeContainer, Card, CardImage, CardTitle } from './ProductList.styles';
+import Link from 'next/link';
 
 const ProductList = () => {        
   const [products, setProducts] = useState([]);
@@ -27,10 +28,13 @@ const ProductList = () => {
   return (
     <HomeContainer>
       {products.map((product) => (
-        <Card key={product._id}>
-          <CardImage src={product.imageURL} alt={product.productName} />
-          <CardTitle>{product.productName}</CardTitle>
-        </Card>
+        <Link href={`/product/${product._id}`} key={product._id} passHref>
+          <Card> 
+            <CardImage src={product.imageURL} alt={product.productName} />
+            <CardTitle>{product.productName}</CardTitle>
+          </Card>
+        </Link>
+        
       ))}
     </HomeContainer>
   );
